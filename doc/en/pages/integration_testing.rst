@@ -2,26 +2,26 @@
  Integration testing
 ====================
 
-Integration testing provides functional testing for a single Puppet module or for a group of modules. To run this
-tests you have to prepare a special testing manifests in the *tests* directory of your module.
+Integration testing provides functional testing for a single Puppet module or for a group of modules. To run these
+tests you have to prepare specific testing manifests in the *tests* directory of your module.
 
-These manifests usually can also be an good example how the module can be used. Usually each of these tests check
-one of module's parts, functions or common use cases.
+These manifests usually can also be an good example of how the module can be used. Usually each of these tests check
+specific parts of a module, functions or common use cases.
 
-Fuel-test contains some scripts to make use of this testing manifests. They can run all of the module's tests and
+Fuel-test contains some scripts to make use of these testing manifests. They can run all of a module's tests and
 collect their results into Jenkins using **xUnit** XML format.
 
 Integration tests provide much wider coverage than modular ones. They can check functionality of one or more modules
-in required environments. So both code consistency and functionality are tested.
+in required environments. This enables both code consistency and functionality to be tested.
 
-Test manifests are relatively easy to write and integration testing is also much more useful for developers. So
-it would be better to focus ot it rather then on unit testing.
+Test manifests are relatively easy to write, although integration testing tends to be much more useful for developers. Therefore,
+it would be better to focus on integration tests rather than on unit testing.
 
 Testing algorithm
 -----------------
 
-In order to implement integration testing you should create special testing environment fist.
-Then you can start to apply the Puppet module inside this environment and check the results.
+In order to implement integration testing you should create a special testing environment fist.
+Next, you can start to apply the Puppet module inside this environment and check the results.
 
 The process of testing can be described by the following steps:
 
@@ -29,19 +29,19 @@ The process of testing can be described by the following steps:
    :alt: integration tests scheme
    :align: center
 
-1. Create virtual system from prepared image with supported operating system.
-2. Take a snapshot of the clean state of operating system in order to be able to revert it.
+1. Create a virtual system from the prepared image with a supported operating system.
+2. Take a snapshot of the clean state of operating system in order to be able to revert back later.
 3. Run the first test in the testing environment and save the results.
 4. Revert to the snapshot of the clean state.
-5. Run the next test, save the result and revert once again.
-6. Collect all the test results as xUnit and put it into Jenkins.
+5. Run the next test, save the result, and revert once again.
+6. Collect all the test results in xUnit XML format and put it into Jenkins.
 
-Implementing test
+Implementing a test
 -----------------
 
-To implement integration testing with Jenkins you need to create a set of test scripts for each puppet module.
-Every test script should create testing environment and run all the tests for its module.
-To simplify creating of such set of test scripts it is a good idea to utilize the power of template engine.
+To implement integration testing with Jenkins you need to create a set of test scripts for each Puppet module.
+Each test script should create a testing environment and run all the tests for its module.
+In order to simplify creating a set of test scripts it is a good idea to utilize the power of the templating engine.
 
 This is the scheme of this process:
 
@@ -49,27 +49,27 @@ This is the scheme of this process:
    :alt: Scheme of the integration testing
    :align: center
 
-- First you should prepare the script implementing the aforementioned testing algorithm and make it as template.
-- Then use MakeTests script to scan directory containing Puppet modules and find all the test manifests.
-- It takes script's template expands paths and names for each module and creates a method to run each test manifest.
-- All of these scripts are saved into a special directory.
-- The Jenkins' job is created. It should run all test method of every test script and collect their results as XML file.
+- First you should prepare a script implementing the testing algorithm above and make it like the template.
+- Use the MakeTests script to scan the directory containing Puppet modules to find all the test manifests.
+- MakeTests will take each script's template and expands paths and filenames for each module and creates methods to run each test manifest.
+- All of these scripts will be saved into a special directory.
+- A Jenkins job is created. It should run all test methods of each test script and collect their results as XML file.
 
-Using MakeTests script
+Using the MakeTests script
 ----------------------
 
-MakeTests script has 5 classes:
+The MakeTests script contains 5 classes:
 
-- **MakeTests** - main class of the script. It provides the program startup, reading and writing of files.
-- **PuppetModule** - represents each Puppet module.  MakeTests object creates list of objects for each Puppet module.
-- **PuppetTest** -  represents single test. PuppetModule object creates list of these objects for each test manifest.
-- **Interface** - helper class.  Provides features for error and debug messages output.
-- **Color** - helper class. For colorizing text output on terminal.
+- **MakeTests** - main class of the script. It provides the program startup and reading and writing of files.
+- **PuppetModule** - represents each Puppet module.  MakeTests object creates a list of objects for each Puppet module.
+- **PuppetTest** -  represents a single test. PuppetModule object creates a list of these objects for each test manifest.
+- **Interface** - helper class.  Provides features for error and debug message output.
+- **Color** - helper class. For color text output on terminal.
 
 MakeTests accepts the following arguments:
 
 mandatory:
-- Path to directory to store the scripts built from templates.
+- Path to directory where scripts built from templates are stored.
 - Path to directory with Puppet modules to be tested.
 optional:
 - (-m) path to directory with puppet modules on the testing environment. It is useful when you create tests not on the

@@ -5,13 +5,13 @@ Appendix B -- Fuel-test directory structure
 Fuel test suit and infrastructure
 ---------------------------------
 
-All tests consist of creating virtual environments and deploying OpenStack inside it and then running Tempest [1]_
-to do acceptance testing.
+All tests consist of creating virtual environments and deploying OpenStack inside them and then running Tempest [1]_
+in order to do acceptance testing.
 
 Directories inside fuel-test repositories:
 
  * ci		classes implementing test environments
- * config	Tempest test suit configuration files
+ * config	Tempest test suite configuration files
  * doc		documentation folder
  * helpers	addition modules and functions used by other modules
  * puppet_tests	scripts for creation of integration Puppet tests using templates
@@ -21,20 +21,20 @@ Directories inside fuel-test repositories:
 other files:
 
  * settings.py	general settings for all OpenStack deployment scripts
- * prepare.py	Tempest test suit configuration file
- * pip-requires	list of test suit dependencies
+ * prepare.py	Tempest test suite configuration file
+ * pip-requires	list of test suite dependencies
 
-.. [1]  Tempest --- OpenStack Acceptance Testing Suit (https://github.com/openstack/tempest)
+.. [1]  Tempest --- OpenStack Acceptance Testing Suite (https://github.com/openstack/tempest)
 
 Devops library
 --------------
 
-This library allows to create virtual environments using libvirt and KVM as a hypervizor. It can be found in this
+This library allows the creation of virtual environments using libvirt and KVM as a hypervisor. It can be found in this
 separate repository https://github.com/Mirantis/devops.git
 
 Directory structure:
 
- * bin dos.py -- virtual environments control tool
+ * bin dos.py -- virtual environment control tool
  * devops -- Devops library files
  * docs	-- documentation stubs, getstart.rst (quick start guide)
  * samples -- examples of virtual environment creation
@@ -46,19 +46,19 @@ Virtual environment creation classes (fuel_test/ci)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
  * *CiBase* (ci_base.py)  --- basic class for preparation of CI environments
- * *CiVM* (ci_bm.py) ---  class for deployment testing environment on Bare Metal (physical) servers
+ * *CiVM* (ci_bm.py) ---  class for deployment testing environment on bare metal (physical) servers
  * *CiBM* (ci_vm.py) ---  class for deployment testing environment on virtual machines
 
-This classes are used by all deployment classes FullTestCase, CompactTestCase, SimpleTestCase, SingleTestCase and
+These classes are used by all deployment classes: FullTestCase, CompactTestCase, SimpleTestCase, SingleTestCase and
 other deployment modes.
 
-Classes to run testing scripts(fuel_test/tests)
+Classes to run testing scripts (fuel_test/tests)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 (C) FullTestCase --- continuous integration environment deployment class. This class implements ``test_full`` method
-that should be run using nosetests (https://nose.readthedocs.org). It deploys OpenStack it "Multi node HA Standalone"
-variant using Fuel. Actually there is only one test that does nothing but OpenStack deployment.
-There are also classes for other architecture variants such as CompactTestCase, MinimalTestCase, SimpleTestCase,
+which should be run using nosetests (https://nose.readthedocs.org). It deploys OpenStack in "Multi node HA Standalone"
+mode using Fuel. Actually, there is only one test that does nothing but OpenStack deployment.
+There are also classes for other architecture variants, such as CompactTestCase, MinimalTestCase, SimpleTestCase,
 SingleTestCase and others.
 
 FullTestCase methods:
@@ -73,7 +73,7 @@ FullTestCase methods:
 
 CompactTestCase class methods:
 
- * deploy_compact -- run deployment  of managed nodes using Puppet agent. This method is used by all other tests.
+ * deploy_compact -- run deployment of managed nodes using Puppet agent. This method is used by all other tests.
  * test_deploy_compact_quantum -- deployment test with Quantum on controller nodes.
  * test_deploy_compact_quantum_standalone -- deployment test with Quantum as a separate node.
  * test_deploy_compact_wo_quantum -- deployment test without Quantum.
