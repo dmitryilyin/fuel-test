@@ -77,6 +77,7 @@ system you intend to run them.
 - (-t) path to the directory with templates.
 - (-f) file with default template
 - (-k) keep all the  previous tests
+- (-i) set libvirt image file variable
 
 Using templates
 ---------------
@@ -93,6 +94,7 @@ You can use this set of variables inside your template:
 - *internal_modules_path* - Path to modules inside a guest virtual system.
 - *internal_manifests_path* - Path to manifests inside a guest virtual system.
 - *tests_directory_path* - Path to the directory containing test files.
+- *image_path* - Path to libvirt image as given by -i key.
 
 **PuppetModule**
 
@@ -106,6 +108,8 @@ You can use this set of variables inside your template:
 - *test.name* - Name of this test.
 - *test.path* - Path to this test. Relative to module and excluding file name.
 - *test.file* - NAme of the file which this test represents.
+- *test.verify_file* - Path to vefify script if present. Relative to module path.
+- *test.spec_file* - Path to serverspec file if present. Relative to module path.
 
 Template files can include other template files giving you an ability to make a complex script from many pieces. Some
 of these pieces can be shared by several scripts. Templates can also extend other templates by replacing some of
