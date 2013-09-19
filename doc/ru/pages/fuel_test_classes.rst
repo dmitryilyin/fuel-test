@@ -108,18 +108,6 @@ Appendix B -- Структура директорий Fuel-test
  * test_simple 
 
 
-(С) SingleTestCase  (  test_single.py )
-
-Методы класса SingleTestCase:
- * deploy 
- * deploy_one_by_one 
- * deploy_by_astute 
- * prepare_only_site_pp 
- * prepare_astute 
- * test_single 
-
-
----
 
 (С) NoopTestCase	прогон всех модулей puppet из /etc/puppet/modules с опцией --noop
 
@@ -141,11 +129,6 @@ Appendix B -- Структура директорий Fuel-test
  * test_deploy_nova_utilities 
  * test_deploy_nova_vncproxy 
  * test_deploy_nova_volume 
-
----
-
-SwiftCase ( test_swift.py )
-    класс для тестирования SWIFT.   НЕ ИСПОЛЬЗУЕТСЯ!
 
 
 ---

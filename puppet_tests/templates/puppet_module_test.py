@@ -1,18 +1,19 @@
 import logging
 import unittest
-from helpers.env_manager import EnvManager
+from environment.pup_environment import PuppetEnvironment
+
 
 LOG = logging.getLogger(__name__)
 
 
 class TestPuppetModule{{ module.name|title }}(unittest.TestCase):
     def setUp(self):
-        self.env = EnvManager()
+        self.env = PuppetEnvironment()
         self.env.await()
         self.puppet_apply = "puppet apply --verbose --detailed-exitcodes --modulepath='{{ internal_modules_path }}'"
 
         if not self.env.snapshot_exist(snap_name="before_test"):
-            self.env.create_snapshot_env(snap_name="before_test")
+            self.env.snapshot_create(snap_name="before_test")
 
         self.env.upload_modules('{{ modules_path }}', '{{ internal_modules_path }}')
 
@@ -31,7 +32,7 @@ class TestPuppetModule{{ module.name|title }}(unittest.TestCase):
 {% endfor %}
 
     def tearDown(self):
-        self.env.revert_snapshot_env("before_test")
+        self.env.snapshot_revert("before_test")
 
 if __name__ == '__main__':
     unittest.main()
