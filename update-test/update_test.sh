@@ -84,13 +84,10 @@ fuel_download_deployment_config() {
     fuel --env "${ENV_ID}" deployment download
   fi
 
-  YAML="deployment_${ENV_ID}/primary-controller_${NODE_ID}.yaml"
+  YAML=$(ls deployment_${ENV_ID}/*_${NODE_ID}.yaml | head -n 1)
   if ! [ -f "${YAML}" ]; then
-    YAML="deployment_${ENV_ID}/controller_${NODE_ID}.yaml"
-    if ! [ -f "${YAML}" ]; then
-      echo "Could not download node's config!"
-      exit 1
-    fi
+    echo "Could not download node's config!"
+    exit 1
   fi
 }
 
